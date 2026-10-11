@@ -208,7 +208,7 @@ This effort is supported by Qollab & IonQ.
 
 ## Demo
 
-Demo video: **[ADD PUBLIC DEMO VIDEO LINK HERE]**
+Demo video: [**Visualizing Exact Quantum Synthesis over the Dyadic Ring (Qollab × IonQ Hackathon)**](https://youtu.be/dPWYOlH3RDE)
 
 The demo shows a nontrivial dyadic matrix being synthesized, verified, and
 visualized step by step.
