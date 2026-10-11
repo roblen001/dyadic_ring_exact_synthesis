@@ -28,8 +28,10 @@ from utils import generate_identity_matrix, generator_to_matrix
 print(f"[Generate] Creating a {2**num_qubits} x {2**num_qubits} matrix "
       f"({num_qubits} qubits, {depth} random generation steps).", flush=True)
 print(f"[Trace] Recording is {'enabled' if GENERATE_VISUALIZATION_TRACE else 'disabled'}.", flush=True)
+
 matrix = generate_unitary_matrix(num_qubits=num_qubits, depth=depth)
 original_matrix = matrix.copy()
+
 print("[Generate] Exact dyadic matrix ready. Starting synthesis.", flush=True)
 
 # 2. exact synthesis algo we will get G_1*G_2*...*G_l*V = Id following
@@ -43,6 +45,7 @@ else:
 
 # reconstruct original matrix from the recorded generators
 print(f"[Verify] Reconstructing the input from {len(synthesis_generators)} generators.", flush=True)
+
 synthesized_matrix = generate_identity_matrix(len(original_matrix))
 
 for generator in synthesis_generators:
@@ -66,6 +69,7 @@ if GENERATE_VISUALIZATION_TRACE:
 
 # 3. create qiskit circuit from synthesized generators
 print("[Qiskit] Building the circuit from the synthesized generators...", flush=True)
+
 synthesized_circuit = create_qiskit_circuit(
     synthesis_generators,
     num_qubits,
@@ -73,6 +77,7 @@ synthesized_circuit = create_qiskit_circuit(
 
 # 4. verify Qiskit circuit implements the original matrix
 print("[Qiskit] Computing its operator and checking against the input matrix...", flush=True)
+
 qiskit_matrix = Operator(synthesized_circuit).data
 original_qiskit_matrix = np.array(original_matrix, dtype=complex)
 

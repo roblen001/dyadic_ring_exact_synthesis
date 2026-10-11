@@ -2,11 +2,11 @@
 
 # configs maybe move to configs.py
 allowed_rings = ["dyadic"]
-num_qubits = 2
+num_qubits = 3
 depth = 80
 
-# Record a JSON trace for the optional Manim visualization.
-GENERATE_VISUALIZATION_TRACE = True
+# record a JSON trace for the optional Manim visualization.
+GENERATE_VISUALIZATION_TRACE = False
 
 from fractions import Fraction
 
