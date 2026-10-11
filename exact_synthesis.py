@@ -40,7 +40,9 @@ def manipulate_into_identity(
     Returns:
         None. The matrix and generator list are modified in place.
     """
+    print("[Synthesis] Pass 2/2: normalize the signed permutation to the identity.", flush=True)
     for i in range(len(matrix)):
+        print(f"[Normalize] Column {i + 1}/{len(matrix)} (index {i}).", flush=True)
         if trace is not None:
             trace.start_column(matrix, i, 0, phase="normalize")
         col = matrix[:, i]
@@ -92,10 +94,15 @@ def synthesize(matrix: np.ndarray, trace=None) -> list:
     # Theorem 5.5: iteratively apply Lemma 5.4 to reduce each column
     # into its corresponding positive basis vector.
     # our goal is to reduce each col into a positive basis vector
+    print("[Synthesis] Pass 1/2: clear column denominators (LDE = least denominator exponent).", flush=True)
+    
     for i in range(len(matrix)): 
         # get lde using log base 2 on denominator
         col = matrix[:,i]
         lde = get_lde(col)
+
+        print(f"[Reduce] Column {i + 1}/{len(matrix)} (index {i}): LDE = {lde}.", flush=True)
+
         if trace is not None:
             trace.start_column(matrix, i, lde, phase="integral")
         while lde != 0:   
@@ -125,6 +132,11 @@ def synthesize(matrix: np.ndarray, trace=None) -> list:
             # values so we can continue to reduce the lde again
             mask = odd_groups_of_4 % 4 == 3
             sign_flip_indices = odd_groups_of_4_indices[mask]
+
+            print(f"  LDE {lde}: {len(odd_indices)} odd entries; "
+                  f"applying {len(sign_flip_indices)} sign flips and "
+                  f"{len(odd_groups_of_4_indices)} H tensor H operations.", flush=True)
+            
             if trace is not None:
                 trace.start_sweep(
                     matrix, lde, scaled_col, odd_indices,
@@ -156,6 +168,8 @@ def synthesize(matrix: np.ndarray, trace=None) -> list:
             # Lemma 5.3 guarantees that the least denominator exponent
             # has decreased after all groups have been processed.
             lde = get_lde(matrix[:, i])
+            
+            print(f"  Sweep complete: LDE = {lde}; {len(generator_list)} generators so far.", flush=True)
             if trace is not None:
                 trace.finish_sweep(matrix, lde)
 
@@ -170,4 +184,5 @@ def synthesize(matrix: np.ndarray, trace=None) -> list:
     # everywhere else which is going to give us the identity matrix
     manipulate_into_identity(matrix, generator_list, trace=trace)
     
+    print(f"[Synthesis] Reduction complete: {len(generator_list)} generators.", flush=True)
     return generator_list

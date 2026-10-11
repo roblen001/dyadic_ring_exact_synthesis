@@ -2,7 +2,7 @@
 
 # configs maybe move to configs.py
 allowed_rings = ["dyadic"]
-num_qubits = 4
+num_qubits = 2
 depth = 80
 
 # Record a JSON trace for the optional Manim visualization.
