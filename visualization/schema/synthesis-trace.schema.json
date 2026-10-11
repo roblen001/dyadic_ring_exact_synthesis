@@ -1,0 +1,1721 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dyadic-viz:synthesis-trace:1.1.0",
+  "title": "Exact dyadic orthogonal synthesis visualization trace",
+  "description": "Proof-carrying visualization data. JSON Schema checks shape; exact cross-reference and arithmetic checks are specified by docs/trace-contract.md and validation.py.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "enum": [
+        "1.0.0",
+        "1.1.0"
+      ]
+    },
+    "trace_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "mock",
+            "compiler"
+          ]
+        },
+        "producer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "producer",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "conventions": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "const": "orthogonal_dyadic"
+        },
+        "action": {
+          "const": "left"
+        },
+        "index_base": {
+          "const": 0
+        },
+        "basis_order": {
+          "type": "string",
+          "minLength": 1
+        },
+        "circuit_time_order": {
+          "const": "earliest_first"
+        }
+      },
+      "required": [
+        "profile",
+        "action",
+        "index_base",
+        "basis_order",
+        "circuit_time_order"
+      ],
+      "additionalProperties": false
+    },
+    "problem": {
+      "type": "object",
+      "properties": {
+        "dimension": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "qubit_count": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "input_matrix_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "target_matrix_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "initial_state_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "column_order": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uniqueItems": true
+        },
+        "reduction_strategy": {
+          "enum": [
+            "columnwise",
+            "integral_then_normalize"
+          ]
+        }
+      },
+      "required": [
+        "dimension",
+        "qubit_count",
+        "input_matrix_id",
+        "target_matrix_id",
+        "initial_state_id",
+        "column_order"
+      ],
+      "additionalProperties": false
+    },
+    "matrices": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/matrix"
+      }
+    },
+    "rules": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/rule"
+      }
+    },
+    "states": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/state"
+      }
+    },
+    "generators": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/generator"
+      }
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/operation"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      },
+      "minItems": 2
+    },
+    "result": {
+      "$ref": "#/$defs/result"
+    },
+    "verifications": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verification"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    }
+  },
+  "required": [
+    "schema_version",
+    "trace_id",
+    "title",
+    "provenance",
+    "conventions",
+    "problem",
+    "matrices",
+    "rules",
+    "states",
+    "generators",
+    "operations",
+    "events",
+    "result",
+    "verifications"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "dyadic": {
+      "type": "object",
+      "properties": {
+        "numerator": {
+          "type": "string",
+          "pattern": "^(0|-?[1-9][0-9]*)$"
+        },
+        "denominator_exponent": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator_exponent"
+      ],
+      "additionalProperties": false
+    },
+    "matrix": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dyadic"
+        },
+        "minItems": 1
+      },
+      "minItems": 1
+    },
+    "rule": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "title",
+        "statement",
+        "source_url"
+      ],
+      "additionalProperties": false
+    },
+    "focus": {
+      "type": "object",
+      "properties": {
+        "column": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "target_row": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lde": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scaled_vector": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(0|-?[1-9][0-9]*)$"
+          }
+        },
+        "residues_mod2": {
+          "type": "array",
+          "items": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        },
+        "residues_mod4": {
+          "type": "array",
+          "items": {
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ]
+          }
+        }
+      },
+      "required": [
+        "column",
+        "target_row",
+        "lde",
+        "scaled_vector",
+        "residues_mod2",
+        "residues_mod4"
+      ],
+      "additionalProperties": false
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "matrix_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "completed_columns": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uniqueItems": true
+        },
+        "focus": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/focus"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "matrix_id",
+        "completed_columns",
+        "focus"
+      ],
+      "additionalProperties": false
+    },
+    "generator": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "sign",
+            "swap",
+            "k"
+          ]
+        },
+        "indices": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 4
+        },
+        "matrix_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "indices",
+        "matrix_id",
+        "label"
+      ],
+      "additionalProperties": false
+    },
+    "operation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "generator_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "before_state_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "after_state_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "role": {
+          "enum": [
+            "sign_correction",
+            "mixing",
+            "permutation",
+            "terminal_sign"
+          ]
+        },
+        "rule_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        }
+      },
+      "required": [
+        "id",
+        "generator_id",
+        "before_state_id",
+        "after_state_id",
+        "role",
+        "rule_id"
+      ],
+      "additionalProperties": false
+    },
+    "explanation": {
+      "type": "object",
+      "properties": {
+        "rule_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "label",
+              "text"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "rule_id",
+        "summary",
+        "facts"
+      ],
+      "additionalProperties": false
+    },
+    "event": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "input"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "state_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                }
+              },
+              "required": [
+                "state_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "column_start"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "state_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                }
+              },
+              "required": [
+                "state_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "lde_analysis"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "state_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                }
+              },
+              "required": [
+                "state_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "residue_analysis"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "state_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "modulus": {
+                  "enum": [
+                    2,
+                    4
+                  ]
+                },
+                "indices": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "state_id",
+                "modulus",
+                "indices"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "indices_selected"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "state_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "indices": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "uniqueItems": true,
+                  "minItems": 1
+                },
+                "purpose": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "state_id",
+                "indices",
+                "purpose"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "generator_selected"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "operation_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                }
+              },
+              "required": [
+                "operation_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "sign_correction"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "operation_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                }
+              },
+              "required": [
+                "operation_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "generator_applied"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "operation_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                }
+              },
+              "required": [
+                "operation_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "lde_reduced"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "before_state_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "after_state_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "operation_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "before_state_id",
+                "after_state_id",
+                "operation_ids"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "column_complete"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "state_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "column": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "state_id",
+                "column"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "recovery"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "verification"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "verification_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                }
+              },
+              "required": [
+                "verification_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "complete"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "state_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                }
+              },
+              "required": [
+                "state_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+            },
+            "type": {
+              "const": "column_integral"
+            },
+            "section": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title"
+              ],
+              "additionalProperties": false
+            },
+            "narration": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hold_seconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "text",
+                "hold_seconds"
+              ],
+              "additionalProperties": false
+            },
+            "explanation": {
+              "$ref": "#/$defs/explanation"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "state_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                }
+              },
+              "required": [
+                "state_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "section",
+            "narration",
+            "explanation",
+            "payload"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "final_state_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "reduction_operation_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+          },
+          "uniqueItems": true
+        },
+        "recovered_factors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "generator_id": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+              },
+              "inverse": {
+                "const": true
+              }
+            },
+            "required": [
+              "generator_id",
+              "inverse"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "circuit": {
+          "type": "object",
+          "properties": {
+            "representation": {
+              "const": "basis_level"
+            },
+            "time_order": {
+              "const": "earliest_first"
+            },
+            "gates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                  },
+                  "generator_id": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+                  },
+                  "inverse": {
+                    "const": true
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "id",
+                  "generator_id",
+                  "inverse",
+                  "label"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "representation",
+            "time_order",
+            "gates"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "final_state_id",
+        "reduction_operation_ids",
+        "recovered_factors",
+        "circuit"
+      ],
+      "additionalProperties": false
+    },
+    "verification": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "kind": {
+          "enum": [
+            "input_orthogonality",
+            "reduction_identity",
+            "reconstruction"
+          ]
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "left_matrix_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "right_matrix_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "passed",
+        "left_matrix_id",
+        "right_matrix_id",
+        "statement"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": "1.1.0"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "problem": {
+            "required": [
+              "reduction_strategy"
+            ]
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "problem": {
+            "properties": {
+              "reduction_strategy": {
+                "const": "columnwise"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -28,6 +28,7 @@ def get_lde(col: np.ndarray) -> int:
 def manipulate_into_identity(
     matrix: np.ndarray,
     generator_list: list,
+    trace=None,
 ) -> None:
     """
     Reduce a signed permutation matrix to the identity matrix.
@@ -40,6 +41,8 @@ def manipulate_into_identity(
         None. The matrix and generator list are modified in place.
     """
     for i in range(len(matrix)):
+        if trace is not None:
+            trace.start_column(matrix, i, 0, phase="normalize")
         col = matrix[:, i]
 
         nonzero_indices = np.flatnonzero(col != 0)
@@ -52,6 +55,8 @@ def manipulate_into_identity(
                 "type": "swap",
                 "indices": [i, row]
             })
+            if trace is not None:
+                trace.operation(matrix, generator_list[-1], role="permutation")
 
         if matrix[i, i] == -1:
             matrix[i, :] *= -1
@@ -60,8 +65,13 @@ def manipulate_into_identity(
                 "type": "sign_flip",
                 "indices": [i]
             })
+            if trace is not None:
+                trace.operation(matrix, generator_list[-1], role="terminal_sign")
 
-def synthesize(matrix: np.ndarray) -> list:
+        if trace is not None:
+            trace.column_complete(matrix, i)
+
+def synthesize(matrix: np.ndarray, trace=None) -> list:
     """
     Reduce a unitary matrix over the dyadic ring to the identity using the
     generators from the exact synthesis algorithm of Theorem 5.5.
@@ -86,6 +96,8 @@ def synthesize(matrix: np.ndarray) -> list:
         # get lde using log base 2 on denominator
         col = matrix[:,i]
         lde = get_lde(col)
+        if trace is not None:
+            trace.start_column(matrix, i, lde, phase="integral")
         while lde != 0:   
             # Lemma 5.3: reduce the least denominator exponent of the column.
 
@@ -113,6 +125,11 @@ def synthesize(matrix: np.ndarray) -> list:
             # values so we can continue to reduce the lde again
             mask = odd_groups_of_4 % 4 == 3
             sign_flip_indices = odd_groups_of_4_indices[mask]
+            if trace is not None:
+                trace.start_sweep(
+                    matrix, lde, scaled_col, odd_indices,
+                    odd_groups_of_4_indices, sign_flip_indices,
+                )
 
             for index in sign_flip_indices:
                 matrix[index, :] *= -1
@@ -121,6 +138,8 @@ def synthesize(matrix: np.ndarray) -> list:
                     "type": "sign_flip",
                     "indices": [int(index)]
                 })
+                if trace is not None:
+                    trace.operation(matrix, generator_list[-1], role="sign_correction")
 
             # Lemma 5.2: apply HxH to each group of four odd entries.
             # Apply HxH gate which is going to make them even
@@ -131,10 +150,17 @@ def synthesize(matrix: np.ndarray) -> list:
                     "type": "hh",
                     "indices": [int(index) for index in group]
                 })
+                if trace is not None:
+                    trace.operation(matrix, generator_list[-1], role="mixing")
 
             # Lemma 5.3 guarantees that the least denominator exponent
             # has decreased after all groups have been processed.
             lde = get_lde(matrix[:, i])
+            if trace is not None:
+                trace.finish_sweep(matrix, lde)
+
+        if trace is not None:
+            trace.column_integral(matrix, i)
 
     # Lemma 5.4 base case: once lde = 0, each unit column is a signed basis vector.
     # we now have matrix in the form of +-basis vector (1 0 0 0 0 0 ...)
@@ -142,6 +168,6 @@ def synthesize(matrix: np.ndarray) -> list:
     # negatives with sign flips again and the we will need to use X gates 
     # to use X[a,b] (a two leve swap generator) to swap rows so we can get 1 at the diagonals and 0s
     # everywhere else which is going to give us the identity matrix
-    manipulate_into_identity(matrix, generator_list)
+    manipulate_into_identity(matrix, generator_list, trace=trace)
     
     return generator_list

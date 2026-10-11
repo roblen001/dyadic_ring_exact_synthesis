@@ -16,7 +16,7 @@ Disclaimer:
     # as a full Qiskit unitary acting on all qubits
 """
 import numpy as np
-from constants import depth, num_qubits
+from constants import depth, num_qubits, GENERATE_VISUALIZATION_TRACE
 from exact_synthesis import synthesize
 from matrix_generation import generate_unitary_matrix
 from qiskit import transpile
@@ -29,7 +29,13 @@ matrix = generate_unitary_matrix(num_qubits=num_qubits, depth=depth)
 original_matrix = matrix.copy()
 
 # 2. exact synthesis algo we will get G_1*G_2*...*G_l*V = Id following
-synthesis_generators = synthesize(matrix)
+if GENERATE_VISUALIZATION_TRACE:
+    from visualization.trace_recorder import TraceRecorder
+
+    visualization_trace = TraceRecorder(original_matrix, num_qubits=num_qubits)
+    synthesis_generators = synthesize(matrix, trace=visualization_trace)
+else:
+    synthesis_generators = synthesize(matrix)
 
 # reconstruct original matrix from the recorded generators
 synthesized_matrix = generate_identity_matrix(len(original_matrix))
@@ -43,6 +49,13 @@ if np.array_equal(original_matrix, synthesized_matrix):
     print("Synthesis verified successfully.")
 else:
     raise ValueError("Synthesis verification failed.")
+
+# Save after exact verification, independently of the optional simulator.
+if GENERATE_VISUALIZATION_TRACE:
+    trace_path = visualization_trace.finish(
+        matrix, synthesis_generators, synthesized_matrix
+    )
+    print(f"Visualization trace saved to: {trace_path}")
 
 
 # 3. create qiskit circuit from synthesized generators

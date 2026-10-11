@@ -1,0 +1,2198 @@
+{
+  "schema_version": "1.0.0",
+  "trace_id": "signed-quartet-demo",
+  "title": "Exact dyadic synthesis: why the denominator drops",
+  "provenance": {
+    "kind": "mock",
+    "producer": "Hand-authored visualization fixture",
+    "note": "A prescribed four-operation witness, independently checked by exact arithmetic. No synthesis algorithm was implemented."
+  },
+  "conventions": {
+    "profile": "orthogonal_dyadic",
+    "action": "left",
+    "index_base": 0,
+    "basis_order": "Computational basis |00>, |01>, |10>, |11>, in ascending binary order.",
+    "circuit_time_order": "earliest_first"
+  },
+  "problem": {
+    "dimension": 4,
+    "qubit_count": 2,
+    "input_matrix_id": "input",
+    "target_matrix_id": "identity",
+    "initial_state_id": "input",
+    "column_order": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "matrices": {
+    "input": [
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        }
+      ]
+    ],
+    "after_sign1": [
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        }
+      ]
+    ],
+    "after_sign2": [
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        }
+      ]
+    ],
+    "after_k": [
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ]
+    ],
+    "identity": [
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        }
+      ]
+    ],
+    "g_sign1": [
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        }
+      ]
+    ],
+    "g_sign2": [
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        }
+      ]
+    ],
+    "g_k": [
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        }
+      ],
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "-1",
+          "denominator_exponent": 1
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 1
+        }
+      ]
+    ],
+    "g_swap": [
+      [
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ],
+      [
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "1",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        },
+        {
+          "numerator": "0",
+          "denominator_exponent": 0
+        }
+      ]
+    ]
+  },
+  "rules": {
+    "membership": {
+      "title": "Real dyadic orthogonality",
+      "statement": "All entries are in Z[1/2] and U^T U = I. For a real matrix, this is the unitary condition.",
+      "source_url": "https://arxiv.org/pdf/1908.06076"
+    },
+    "column": {
+      "title": "Column-by-column reduction",
+      "statement": "Reduce the active column to its matching standard basis vector while fixing previously completed columns. This trace uses ascending column order.",
+      "source_url": "https://arxiv.org/pdf/1908.06076"
+    },
+    "lde": {
+      "title": "Least denominator exponent",
+      "statement": "k is the smallest nonnegative integer for which 2^k v is integral. If k > 0, an odd entry in the lift witnesses minimality.",
+      "source_url": "https://arxiv.org/pdf/1908.06076"
+    },
+    "residues": {
+      "title": "Odd entries occur in multiples of four",
+      "statement": "For an integral lift w = 2^k v of a unit vector with k > 0, sum(w_i^2) = 4^k. Modulo four, the number of odd w_i is therefore divisible by four.",
+      "source_url": "https://arxiv.org/pdf/1908.06076"
+    },
+    "signs": {
+      "title": "Normalize odd residues",
+      "statement": "For each selected odd entry, choose its sign so its residue modulo four is one. A sign flip is orthogonal and leaves other rows unchanged.",
+      "source_url": "https://arxiv.org/pdf/1908.06076"
+    },
+    "quartet": {
+      "title": "Even output from a normalized quartet",
+      "statement": "For four integers congruent to one modulo four, K times that quartet has even integer entries. After all odd quartets have been treated, the active column admits a smaller denominator exponent.",
+      "source_url": "https://arxiv.org/pdf/1908.06076"
+    },
+    "integral": {
+      "title": "Integral unit-vector base case",
+      "statement": "An integral real unit vector is a signed standard basis vector. A swap and, if necessary, a sign map it to the desired basis vector.",
+      "source_url": "https://arxiv.org/pdf/1908.06076"
+    },
+    "completion": {
+      "title": "Completed-column invariant",
+      "statement": "A completed column equals its target standard basis vector; later row operations must preserve every completed column.",
+      "source_url": "https://arxiv.org/pdf/1908.06076"
+    },
+    "recovery": {
+      "title": "Invert the reduction",
+      "statement": "If g_m ... g_1 U = I, then U = g_1^-1 ... g_m^-1. Gate execution on column vectors proceeds from the rightmost factor to the leftmost.",
+      "source_url": "https://arxiv.org/pdf/1908.06076"
+    },
+    "verification": {
+      "title": "Exact equality check",
+      "statement": "Compare both sides entry by entry using exact rational arithmetic. Arithmetic checks do not certify arbitrary prose explanations.",
+      "source_url": "https://arxiv.org/pdf/1908.06076"
+    }
+  },
+  "states": {
+    "input": {
+      "matrix_id": "input",
+      "completed_columns": [],
+      "focus": null
+    },
+    "c0_start": {
+      "matrix_id": "input",
+      "completed_columns": [],
+      "focus": {
+        "column": 0,
+        "target_row": 0,
+        "lde": 1,
+        "scaled_vector": [
+          "1",
+          "-1",
+          "-1",
+          "1"
+        ],
+        "residues_mod2": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "residues_mod4": [
+          1,
+          3,
+          3,
+          1
+        ]
+      }
+    },
+    "c0_sign1": {
+      "matrix_id": "after_sign1",
+      "completed_columns": [],
+      "focus": {
+        "column": 0,
+        "target_row": 0,
+        "lde": 1,
+        "scaled_vector": [
+          "1",
+          "1",
+          "-1",
+          "1"
+        ],
+        "residues_mod2": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "residues_mod4": [
+          1,
+          1,
+          3,
+          1
+        ]
+      }
+    },
+    "c0_sign2": {
+      "matrix_id": "after_sign2",
+      "completed_columns": [],
+      "focus": {
+        "column": 0,
+        "target_row": 0,
+        "lde": 1,
+        "scaled_vector": [
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "residues_mod2": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "residues_mod4": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "c0_reduced": {
+      "matrix_id": "after_k",
+      "completed_columns": [],
+      "focus": {
+        "column": 0,
+        "target_row": 0,
+        "lde": 0,
+        "scaled_vector": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ],
+        "residues_mod2": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "residues_mod4": [
+          1,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "c0_done": {
+      "matrix_id": "after_k",
+      "completed_columns": [
+        0
+      ],
+      "focus": {
+        "column": 0,
+        "target_row": 0,
+        "lde": 0,
+        "scaled_vector": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ],
+        "residues_mod2": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "residues_mod4": [
+          1,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "c1_start": {
+      "matrix_id": "after_k",
+      "completed_columns": [
+        0
+      ],
+      "focus": {
+        "column": 1,
+        "target_row": 1,
+        "lde": 0,
+        "scaled_vector": [
+          "0",
+          "0",
+          "0",
+          "1"
+        ],
+        "residues_mod2": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "residues_mod4": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "c1_reduced": {
+      "matrix_id": "identity",
+      "completed_columns": [
+        0
+      ],
+      "focus": {
+        "column": 1,
+        "target_row": 1,
+        "lde": 0,
+        "scaled_vector": [
+          "0",
+          "1",
+          "0",
+          "0"
+        ],
+        "residues_mod2": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "residues_mod4": [
+          0,
+          1,
+          0,
+          0
+        ]
+      }
+    },
+    "c1_done": {
+      "matrix_id": "identity",
+      "completed_columns": [
+        0,
+        1
+      ],
+      "focus": {
+        "column": 1,
+        "target_row": 1,
+        "lde": 0,
+        "scaled_vector": [
+          "0",
+          "1",
+          "0",
+          "0"
+        ],
+        "residues_mod2": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "residues_mod4": [
+          0,
+          1,
+          0,
+          0
+        ]
+      }
+    },
+    "c2_start": {
+      "matrix_id": "identity",
+      "completed_columns": [
+        0,
+        1
+      ],
+      "focus": {
+        "column": 2,
+        "target_row": 2,
+        "lde": 0,
+        "scaled_vector": [
+          "0",
+          "0",
+          "1",
+          "0"
+        ],
+        "residues_mod2": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "residues_mod4": [
+          0,
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    "c2_done": {
+      "matrix_id": "identity",
+      "completed_columns": [
+        0,
+        1,
+        2
+      ],
+      "focus": {
+        "column": 2,
+        "target_row": 2,
+        "lde": 0,
+        "scaled_vector": [
+          "0",
+          "0",
+          "1",
+          "0"
+        ],
+        "residues_mod2": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "residues_mod4": [
+          0,
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    "c3_start": {
+      "matrix_id": "identity",
+      "completed_columns": [
+        0,
+        1,
+        2
+      ],
+      "focus": {
+        "column": 3,
+        "target_row": 3,
+        "lde": 0,
+        "scaled_vector": [
+          "0",
+          "0",
+          "0",
+          "1"
+        ],
+        "residues_mod2": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "residues_mod4": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "c3_done": {
+      "matrix_id": "identity",
+      "completed_columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "focus": {
+        "column": 3,
+        "target_row": 3,
+        "lde": 0,
+        "scaled_vector": [
+          "0",
+          "0",
+          "0",
+          "1"
+        ],
+        "residues_mod2": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "residues_mod4": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "final": {
+      "matrix_id": "identity",
+      "completed_columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "focus": null
+    }
+  },
+  "generators": {
+    "s1": {
+      "kind": "sign",
+      "indices": [
+        1
+      ],
+      "matrix_id": "g_sign1",
+      "label": "S[1]"
+    },
+    "s2": {
+      "kind": "sign",
+      "indices": [
+        2
+      ],
+      "matrix_id": "g_sign2",
+      "label": "S[2]"
+    },
+    "k0123": {
+      "kind": "k",
+      "indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "matrix_id": "g_k",
+      "label": "K[0,1,2,3]"
+    },
+    "x13": {
+      "kind": "swap",
+      "indices": [
+        1,
+        3
+      ],
+      "matrix_id": "g_swap",
+      "label": "X[1,3]"
+    }
+  },
+  "operations": [
+    {
+      "id": "op_s1",
+      "generator_id": "s1",
+      "before_state_id": "c0_start",
+      "after_state_id": "c0_sign1",
+      "role": "sign_correction",
+      "rule_id": "signs"
+    },
+    {
+      "id": "op_s2",
+      "generator_id": "s2",
+      "before_state_id": "c0_sign1",
+      "after_state_id": "c0_sign2",
+      "role": "sign_correction",
+      "rule_id": "signs"
+    },
+    {
+      "id": "op_k",
+      "generator_id": "k0123",
+      "before_state_id": "c0_sign2",
+      "after_state_id": "c0_reduced",
+      "role": "mixing",
+      "rule_id": "quartet"
+    },
+    {
+      "id": "op_x13",
+      "generator_id": "x13",
+      "before_state_id": "c1_start",
+      "after_state_id": "c1_reduced",
+      "role": "permutation",
+      "rule_id": "integral"
+    }
+  ],
+  "events": [
+    {
+      "id": "event_01",
+      "type": "input",
+      "section": {
+        "id": "introduction",
+        "title": "The exact target"
+      },
+      "narration": {
+        "text": "Our target is a four by four matrix with exact half-integer entries. We will watch a supplied reduction trace turn it into identity.",
+        "hold_seconds": 3
+      },
+      "explanation": {
+        "rule_id": "membership",
+        "summary": "A real dyadic orthogonal target",
+        "facts": [
+          {
+            "label": "Exact ring",
+            "text": "Every nonzero entry is +1/2 or -1/2."
+          },
+          {
+            "label": "Membership witness",
+            "text": "For the integer numerator A, A^T A = 4 I, so U^T U = I."
+          },
+          {
+            "label": "Index convention",
+            "text": "Rows and columns are numbered 0, 1, 2, 3."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "input"
+      }
+    },
+    {
+      "id": "event_02",
+      "type": "verification",
+      "section": {
+        "id": "introduction",
+        "title": "The exact target"
+      },
+      "narration": {
+        "text": "The supplied orthogonality check holds exactly.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "verification",
+        "summary": "Check the input class",
+        "facts": [
+          {
+            "label": "Equality",
+            "text": "U^T U = I"
+          }
+        ]
+      },
+      "payload": {
+        "verification_id": "verify_input"
+      }
+    },
+    {
+      "id": "event_03",
+      "type": "column_start",
+      "section": {
+        "id": "column_zero",
+        "title": "Column 0: expose the arithmetic"
+      },
+      "narration": {
+        "text": "The first task is to send column zero to e zero.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "column",
+        "summary": "Focus on column 0",
+        "facts": [
+          {
+            "label": "Active vector",
+            "text": "v = (1, -1, -1, 1)^T / 2"
+          },
+          {
+            "label": "Completed columns",
+            "text": "None yet."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c0_start"
+      }
+    },
+    {
+      "id": "event_04",
+      "type": "lde_analysis",
+      "section": {
+        "id": "column_zero",
+        "title": "Column 0: expose the arithmetic"
+      },
+      "narration": {
+        "text": "Multiplying the active vector by two makes every entry an integer. Its odd entries show that exponent one is minimal.",
+        "hold_seconds": 3
+      },
+      "explanation": {
+        "rule_id": "lde",
+        "summary": "The least denominator exponent is 1",
+        "facts": [
+          {
+            "label": "Integral lift",
+            "text": "w = 2 v = (1, -1, -1, 1)^T"
+          },
+          {
+            "label": "Minimality witness",
+            "text": "w[0] = 1 is odd; v is not integral."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c0_start"
+      }
+    },
+    {
+      "id": "event_05",
+      "type": "residue_analysis",
+      "section": {
+        "id": "column_zero",
+        "title": "Column 0: expose the arithmetic"
+      },
+      "narration": {
+        "text": "The squared norm of the lift is four. Modulo four, each odd square contributes one, so the odd entries come in a group of four.",
+        "hold_seconds": 3
+      },
+      "explanation": {
+        "rule_id": "residues",
+        "summary": "All four lifted entries are odd",
+        "facts": [
+          {
+            "label": "Norm identity",
+            "text": "1^2 + (-1)^2 + (-1)^2 + 1^2 = 4"
+          },
+          {
+            "label": "Count",
+            "text": "There are exactly four odd entries."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c0_start",
+        "modulus": 2,
+        "indices": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "id": "event_06",
+      "type": "indices_selected",
+      "section": {
+        "id": "column_zero",
+        "title": "Column 0: expose the arithmetic"
+      },
+      "narration": {
+        "text": "The trace selects rows zero, one, two, and three.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "residues",
+        "summary": "Select the odd quartet",
+        "facts": [
+          {
+            "label": "Ordered support",
+            "text": "[0, 1, 2, 3]"
+          },
+          {
+            "label": "Coverage",
+            "text": "This quartet contains all odd entries."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c0_start",
+        "indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "purpose": "The single quartet of odd entries."
+      }
+    },
+    {
+      "id": "event_07",
+      "type": "residue_analysis",
+      "section": {
+        "id": "column_zero",
+        "title": "Column 0: expose the arithmetic"
+      },
+      "narration": {
+        "text": "Modulo four, the residues are one, three, three, one. Negating rows one and two changes each three to one.",
+        "hold_seconds": 3
+      },
+      "explanation": {
+        "rule_id": "signs",
+        "summary": "Two residues need sign corrections",
+        "facts": [
+          {
+            "label": "Residues",
+            "text": "w mod 4 = (1, 3, 3, 1)^T"
+          },
+          {
+            "label": "Sign choices",
+            "text": "Flip rows 1 and 2; leave rows 0 and 3 unchanged."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c0_start",
+        "modulus": 4,
+        "indices": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "id": "event_08",
+      "type": "generator_selected",
+      "section": {
+        "id": "sign_corrections",
+        "title": "Normalize the signs"
+      },
+      "narration": {
+        "text": "The first generator changes the sign of row one.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "signs",
+        "summary": "Choose the row-1 sign generator",
+        "facts": [
+          {
+            "label": "Local choice",
+            "text": "-w[1] = 1, which is 1 modulo 4."
+          }
+        ]
+      },
+      "payload": {
+        "operation_id": "op_s1"
+      }
+    },
+    {
+      "id": "event_09",
+      "type": "sign_correction",
+      "section": {
+        "id": "sign_corrections",
+        "title": "Normalize the signs"
+      },
+      "narration": {
+        "text": "Left multiplication negates the entire row, not just the highlighted column entry.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "signs",
+        "summary": "Apply S[1] on the left",
+        "facts": [
+          {
+            "label": "Updated lift",
+            "text": "(1, 1, -1, 1)^T"
+          },
+          {
+            "label": "Column LDE",
+            "text": "Still 1."
+          }
+        ]
+      },
+      "payload": {
+        "operation_id": "op_s1"
+      }
+    },
+    {
+      "id": "event_10",
+      "type": "generator_selected",
+      "section": {
+        "id": "sign_corrections",
+        "title": "Normalize the signs"
+      },
+      "narration": {
+        "text": "The second generator changes the sign of row two.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "signs",
+        "summary": "Choose the row-2 sign generator",
+        "facts": [
+          {
+            "label": "Local choice",
+            "text": "-w[2] = 1, which is 1 modulo 4."
+          }
+        ]
+      },
+      "payload": {
+        "operation_id": "op_s2"
+      }
+    },
+    {
+      "id": "event_11",
+      "type": "sign_correction",
+      "section": {
+        "id": "sign_corrections",
+        "title": "Normalize the signs"
+      },
+      "narration": {
+        "text": "Now all four selected lifted entries have residue one modulo four.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "signs",
+        "summary": "Apply S[2] on the left",
+        "facts": [
+          {
+            "label": "Updated lift",
+            "text": "(1, 1, 1, 1)^T"
+          },
+          {
+            "label": "Column LDE",
+            "text": "Still 1."
+          }
+        ]
+      },
+      "payload": {
+        "operation_id": "op_s2"
+      }
+    },
+    {
+      "id": "event_12",
+      "type": "residue_analysis",
+      "section": {
+        "id": "sign_corrections",
+        "title": "Normalize the signs"
+      },
+      "narration": {
+        "text": "The sign-normalized lift is one in every row.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "quartet",
+        "summary": "The quartet is ready",
+        "facts": [
+          {
+            "label": "Residues",
+            "text": "(1, 1, 1, 1)^T modulo 4"
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c0_sign2",
+        "modulus": 4,
+        "indices": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "id": "event_13",
+      "type": "generator_selected",
+      "section": {
+        "id": "mixing",
+        "title": "Why the denominator drops"
+      },
+      "narration": {
+        "text": "K is H tensor H on this ordered quartet. Its signed row sums turn the normalized quartet into even integers.",
+        "hold_seconds": 3
+      },
+      "explanation": {
+        "rule_id": "quartet",
+        "summary": "Choose the four-level K generator",
+        "facts": [
+          {
+            "label": "Block convention",
+            "text": "K = (1/2) [[1,1,1,1],[1,-1,1,-1],[1,1,-1,-1],[1,-1,-1,1]]"
+          },
+          {
+            "label": "Witness at the old scale",
+            "text": "K (1,1,1,1)^T = (2,0,0,0)^T."
+          }
+        ]
+      },
+      "payload": {
+        "operation_id": "op_k"
+      }
+    },
+    {
+      "id": "event_14",
+      "type": "generator_applied",
+      "section": {
+        "id": "mixing",
+        "title": "Why the denominator drops"
+      },
+      "narration": {
+        "text": "K acts on all columns. The active column becomes exactly e zero.",
+        "hold_seconds": 3
+      },
+      "explanation": {
+        "rule_id": "quartet",
+        "summary": "Apply K to the current matrix",
+        "facts": [
+          {
+            "label": "Active-column result",
+            "text": "K v = (1,0,0,0)^T"
+          },
+          {
+            "label": "Remaining matrix",
+            "text": "The current matrix is the row swap X[1,3]."
+          }
+        ]
+      },
+      "payload": {
+        "operation_id": "op_k"
+      }
+    },
+    {
+      "id": "event_15",
+      "type": "lde_reduced",
+      "section": {
+        "id": "mixing",
+        "title": "Why the denominator drops"
+      },
+      "narration": {
+        "text": "Both sign corrections and K form this reduction batch. Every odd entry was covered, so the active column is now integral.",
+        "hold_seconds": 3
+      },
+      "explanation": {
+        "rule_id": "quartet",
+        "summary": "Column LDE falls from 1 to 0",
+        "facts": [
+          {
+            "label": "Old-scale output",
+            "text": "(2,0,0,0)^T is even in every coordinate."
+          },
+          {
+            "label": "New minimal lift",
+            "text": "At exponent 0, the lift is (1,0,0,0)^T."
+          },
+          {
+            "label": "Scope",
+            "text": "This decrease is a fact about the active column."
+          }
+        ]
+      },
+      "payload": {
+        "before_state_id": "c0_start",
+        "after_state_id": "c0_reduced",
+        "operation_ids": [
+          "op_s1",
+          "op_s2",
+          "op_k"
+        ]
+      }
+    },
+    {
+      "id": "event_16",
+      "type": "column_complete",
+      "section": {
+        "id": "mixing",
+        "title": "Why the denominator drops"
+      },
+      "narration": {
+        "text": "We have fixed the first column. The remaining operation will preserve it.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "completion",
+        "summary": "Column 0 is complete",
+        "facts": [
+          {
+            "label": "Exact target",
+            "text": "Column 0 = e_0."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c0_done",
+        "column": 0
+      }
+    },
+    {
+      "id": "event_17",
+      "type": "column_start",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "Column one is already integral, but its one is in row three.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "column",
+        "summary": "Start column 1",
+        "facts": [
+          {
+            "label": "Active vector",
+            "text": "v = e_3"
+          },
+          {
+            "label": "Invariant",
+            "text": "Column 0 stays equal to e_0."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c1_start"
+      }
+    },
+    {
+      "id": "event_18",
+      "type": "lde_analysis",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "No denominator reduction is needed for this column.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "lde",
+        "summary": "Column 1 has LDE 0",
+        "facts": [
+          {
+            "label": "Lift",
+            "text": "w = v = (0,0,0,1)^T"
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c1_start"
+      }
+    },
+    {
+      "id": "event_19",
+      "type": "indices_selected",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "The integral base case calls for swapping the nonzero row into its target position.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "integral",
+        "summary": "Select rows 1 and 3",
+        "facts": [
+          {
+            "label": "Source row",
+            "text": "3"
+          },
+          {
+            "label": "Target row",
+            "text": "1"
+          },
+          {
+            "label": "Sign correction",
+            "text": "None: the nonzero entry is +1."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c1_start",
+        "indices": [
+          1,
+          3
+        ],
+        "purpose": "Swap the nonzero row with the target row."
+      }
+    },
+    {
+      "id": "event_20",
+      "type": "generator_selected",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "This row swap leaves completed column zero fixed.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "integral",
+        "summary": "Choose X[1,3]",
+        "facts": [
+          {
+            "label": "Support",
+            "text": "Rows 1 and 3 only."
+          }
+        ]
+      },
+      "payload": {
+        "operation_id": "op_x13"
+      }
+    },
+    {
+      "id": "event_21",
+      "type": "generator_applied",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "After the swap, the entire matrix is identity.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "integral",
+        "summary": "Apply the row swap",
+        "facts": [
+          {
+            "label": "Exact result",
+            "text": "M = I_4"
+          },
+          {
+            "label": "Active column",
+            "text": "Column 1 = e_1."
+          }
+        ]
+      },
+      "payload": {
+        "operation_id": "op_x13"
+      }
+    },
+    {
+      "id": "event_22",
+      "type": "column_complete",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "The second column is now fixed.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "completion",
+        "summary": "Column 1 is complete",
+        "facts": [
+          {
+            "label": "Completed columns",
+            "text": "0 and 1."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c1_done",
+        "column": 1
+      }
+    },
+    {
+      "id": "event_23",
+      "type": "column_start",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "Column two is already its target basis vector.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "column",
+        "summary": "Inspect column 2",
+        "facts": [
+          {
+            "label": "Active vector",
+            "text": "v = e_2"
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c2_start"
+      }
+    },
+    {
+      "id": "event_24",
+      "type": "lde_analysis",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "This column is integral.",
+        "hold_seconds": 1.5
+      },
+      "explanation": {
+        "rule_id": "lde",
+        "summary": "Column 2 has LDE 0",
+        "facts": [
+          {
+            "label": "Lift",
+            "text": "(0,0,1,0)^T"
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c2_start"
+      }
+    },
+    {
+      "id": "event_25",
+      "type": "column_complete",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "Mark column two complete without inventing an unnecessary generator.",
+        "hold_seconds": 1.5
+      },
+      "explanation": {
+        "rule_id": "completion",
+        "summary": "Column 2 needs no operations",
+        "facts": [
+          {
+            "label": "Exact target",
+            "text": "Column 2 = e_2."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c2_done",
+        "column": 2
+      }
+    },
+    {
+      "id": "event_26",
+      "type": "column_start",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "The final column is already its target.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "column",
+        "summary": "Inspect column 3",
+        "facts": [
+          {
+            "label": "Active vector",
+            "text": "v = e_3"
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c3_start"
+      }
+    },
+    {
+      "id": "event_27",
+      "type": "lde_analysis",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "This column is integral as well.",
+        "hold_seconds": 1.5
+      },
+      "explanation": {
+        "rule_id": "lde",
+        "summary": "Column 3 has LDE 0",
+        "facts": [
+          {
+            "label": "Lift",
+            "text": "(0,0,0,1)^T"
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c3_start"
+      }
+    },
+    {
+      "id": "event_28",
+      "type": "column_complete",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "All four columns have reached their specified targets.",
+        "hold_seconds": 2
+      },
+      "explanation": {
+        "rule_id": "completion",
+        "summary": "Every column is complete",
+        "facts": [
+          {
+            "label": "Exact endpoint",
+            "text": "M_final = I_4."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "c3_done",
+        "column": 3
+      }
+    },
+    {
+      "id": "event_29",
+      "type": "verification",
+      "section": {
+        "id": "remaining_columns",
+        "title": "Finish the integral columns"
+      },
+      "narration": {
+        "text": "Exact multiplication confirms that the supplied row operations reduce the input to identity.",
+        "hold_seconds": 3
+      },
+      "explanation": {
+        "rule_id": "verification",
+        "summary": "Verify the reduction endpoint",
+        "facts": [
+          {
+            "label": "Reduction equation",
+            "text": "X[1,3] K[0,1,2,3] S[2] S[1] U = I_4."
+          }
+        ]
+      },
+      "payload": {
+        "verification_id": "verify_reduction"
+      }
+    },
+    {
+      "id": "event_30",
+      "type": "recovery",
+      "section": {
+        "id": "recovery",
+        "title": "Recover the implementation"
+      },
+      "narration": {
+        "text": "The written matrix product is S one, S two, K, X. To act on a column state, the circuit executes those factors from right to left.",
+        "hold_seconds": 4
+      },
+      "explanation": {
+        "rule_id": "recovery",
+        "summary": "Invert the reduction, then read circuit time",
+        "facts": [
+          {
+            "label": "Written product",
+            "text": "U = S[1] S[2] K[0,1,2,3] X[1,3]"
+          },
+          {
+            "label": "Execution order",
+            "text": "X[1,3], K[0,1,2,3], S[2], S[1]"
+          },
+          {
+            "label": "Gate meaning",
+            "text": "These are basis-level gates, with support indices naming basis states."
+          }
+        ]
+      },
+      "payload": {}
+    },
+    {
+      "id": "event_31",
+      "type": "verification",
+      "section": {
+        "id": "recovery",
+        "title": "Recover the implementation"
+      },
+      "narration": {
+        "text": "The recovered generator product agrees with every entry of the original matrix.",
+        "hold_seconds": 3
+      },
+      "explanation": {
+        "rule_id": "verification",
+        "summary": "Verify exact reconstruction",
+        "facts": [
+          {
+            "label": "Equality",
+            "text": "S[1] S[2] K[0,1,2,3] X[1,3] = U"
+          },
+          {
+            "label": "Arithmetic",
+            "text": "Exact dyadic fractions throughout; no numerical tolerance."
+          }
+        ]
+      },
+      "payload": {
+        "verification_id": "verify_reconstruction"
+      }
+    },
+    {
+      "id": "event_32",
+      "type": "complete",
+      "section": {
+        "id": "recovery",
+        "title": "Recover the implementation"
+      },
+      "narration": {
+        "text": "The trace is complete: four operations, identity reduction, and an exact implementation of the original target.",
+        "hold_seconds": 3
+      },
+      "explanation": {
+        "rule_id": "completion",
+        "summary": "The supplied synthesis trace is verified",
+        "facts": [
+          {
+            "label": "Provenance",
+            "text": "This is a hand-authored mock trace."
+          },
+          {
+            "label": "Narration",
+            "text": "Section markers and captions are exported for your voiceover."
+          }
+        ]
+      },
+      "payload": {
+        "state_id": "final"
+      }
+    }
+  ],
+  "result": {
+    "final_state_id": "final",
+    "reduction_operation_ids": [
+      "op_s1",
+      "op_s2",
+      "op_k",
+      "op_x13"
+    ],
+    "recovered_factors": [
+      {
+        "generator_id": "s1",
+        "inverse": true
+      },
+      {
+        "generator_id": "s2",
+        "inverse": true
+      },
+      {
+        "generator_id": "k0123",
+        "inverse": true
+      },
+      {
+        "generator_id": "x13",
+        "inverse": true
+      }
+    ],
+    "circuit": {
+      "representation": "basis_level",
+      "time_order": "earliest_first",
+      "gates": [
+        {
+          "id": "gate_1",
+          "generator_id": "x13",
+          "inverse": true,
+          "label": "X[1,3]"
+        },
+        {
+          "id": "gate_2",
+          "generator_id": "k0123",
+          "inverse": true,
+          "label": "K[0,1,2,3]"
+        },
+        {
+          "id": "gate_3",
+          "generator_id": "s2",
+          "inverse": true,
+          "label": "S[2]"
+        },
+        {
+          "id": "gate_4",
+          "generator_id": "s1",
+          "inverse": true,
+          "label": "S[1]"
+        }
+      ]
+    }
+  },
+  "verifications": [
+    {
+      "id": "verify_input",
+      "kind": "input_orthogonality",
+      "passed": true,
+      "left_matrix_id": "identity",
+      "right_matrix_id": "identity",
+      "statement": "U^T U = I_4 exactly."
+    },
+    {
+      "id": "verify_reduction",
+      "kind": "reduction_identity",
+      "passed": true,
+      "left_matrix_id": "identity",
+      "right_matrix_id": "identity",
+      "statement": "X[1,3] K S[2] S[1] U = I_4 exactly."
+    },
+    {
+      "id": "verify_reconstruction",
+      "kind": "reconstruction",
+      "passed": true,
+      "left_matrix_id": "input",
+      "right_matrix_id": "input",
+      "statement": "S[1] S[2] K X[1,3] = U exactly."
+    }
+  ]
+}
