@@ -59,15 +59,11 @@ The main program performs the following steps:
 
 The two main correctness checks are
 
-\[
 V_reduced = I
-\]
 
 and
 
-\[
-V_ynthesized = V_original.
-\]
+V_synthesized = V_original.
 
 Because the synthesis uses Python `Fraction` objects, the mathematical
 reconstruction is checked using exact equality rather than floating-point
@@ -172,9 +168,7 @@ a full unitary operation acting on the qubit register.
 The paper goes one step further in Proposition 4.4 and shows that these
 generators can be implemented using the gate set
 
-\[
-\{X, CX, CCX, H \otimes H\}
-\]
+{X, CX, CCX, HxH}
 
 with at most one clean ancilla.
 
