@@ -1,3 +1,5 @@
+<img width="1672" height="941" alt="dyadic-ring-exact-synthesis" src="https://github.com/user-attachments/assets/daa469e3-b34d-477d-b1fd-473f78aa2d2b" />
+
 # Dyadic Ring Exact Synthesis
 
 Exact synthesis and visualization of quantum operations over the dyadic ring Z[1/2], following the construction of Amy, Glaudell, and Ross (2020).
