@@ -1,5 +1,24 @@
 # Compiler → visualization contract, versions 1.0.0 and 1.1.0
 
+## Presentation overlays (outside the mathematical trace)
+
+The contract below describes the complete source execution, not a shortened
+movie. The CLI validates that complete trace before building a presentation.
+Its default compact mode can condense repeated semantic events into labelled
+before/after summaries; `--detail full` retains the original sequence and holds.
+Compact mode can shorten trace-supplied holds as an explicit editorial override.
+
+An optional `--presentation` JSON sidecar adds formula annotations, retained
+events and case tags. These are not fields of the v1 trace schema. The renderer
+never mutates source snapshots, operations, witnesses or verification flags.
+The storyboard's `source_event_ids` maps all source events once, in order, to
+presented beats. Formula beats cover no source events. Summary endpoints are
+recorded states, and every operation remains in the saved complete `.trace.json`.
+Presentation summaries/annotations are not compiler events and must not be
+submitted as a shortened trace to the mathematical validator.
+
+See ../README.md and ../AGENTS.md for the human workflow and maintenance policy.
+
 ## Project integration: two-pass traces (1.1.0)
 
 The project's existing compiler first makes every column integral, then calls
@@ -21,13 +40,18 @@ Existing `1.0.0` files remain supported and use the original single-pass
 `columnwise` lifecycle below. Version `1.1.0` requires `reduction_strategy`,
 which can be either `columnwise` or `integral_then_normalize`.
 
-`visualization/trace_recorder.py` implements this recording adapter. It reads
-snapshots and decisions from optional callbacks; it neither chooses nor applies
-synthesis operations. In the root `constants.py`, the default
-`GENERATE_VISUALIZATION_TRACE = True` enables collection in `main.py`.
-When false, `main.py` skips the recorder import, construction, callbacks' bodies,
-and file creation. The existing algorithm's default `trace=None` remains usable
-by other callers without any tracing dependencies.
+`visualization/trace_recorder.py` implements recording. It reads snapshots and
+decisions from optional callbacks; it neither chooses nor applies synthesis
+operations. The root `synthesis_trace.py` adapter binds the working matrix and
+generator list to short semantic hooks and forwards observations synchronously.
+`create_trace` selects recording once in `main.py`; setting
+`GENERATE_VISUALIZATION_TRACE = True` in root `constants.py` enables collection.
+The current default is False. Disabled runs import only the lightweight hook
+interface and make no-op calls, without importing the visualization package,
+constructing snapshots or proof witnesses, or creating trace files. Hook arguments
+must use already-computed compiler values so disabling recording avoids expensive
+argument work. The default `trace=None` and existing raw `TraceRecorder` callers
+remain supported. Trace finalization stays after exact reconstruction verification.
 
 The remaining sections describe the original 1.0.0 record shapes and invariants,
 with the two-pass lifecycle exception stated above.

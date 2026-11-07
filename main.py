@@ -22,12 +22,12 @@ from matrix_generation import generate_unitary_matrix
 from qiskit import transpile
 from qiskit.quantum_info import Operator
 from qiskit_circuit import create_qiskit_circuit
+from synthesis_trace import create_trace
 from utils import generate_identity_matrix, generator_to_matrix
 
 # 1. randomly select matrix over dyadic ring
 print(f"[Generate] Creating a {2**num_qubits} x {2**num_qubits} matrix "
       f"({num_qubits} qubits, {depth} random generation steps).", flush=True)
-print(f"[Trace] Recording is {'enabled' if GENERATE_VISUALIZATION_TRACE else 'disabled'}.", flush=True)
 
 matrix = generate_unitary_matrix(num_qubits=num_qubits, depth=depth)
 original_matrix = matrix.copy()
@@ -35,13 +35,10 @@ original_matrix = matrix.copy()
 print("[Generate] Exact dyadic matrix ready. Starting synthesis.", flush=True)
 
 # 2. exact synthesis algo we will get G_1*G_2*...*G_l*V = Id following
-if GENERATE_VISUALIZATION_TRACE:
-    from visualization.trace_recorder import TraceRecorder
-
-    visualization_trace = TraceRecorder(original_matrix, num_qubits=num_qubits)
-    synthesis_generators = synthesize(matrix, trace=visualization_trace)
-else:
-    synthesis_generators = synthesize(matrix)
+visualization_trace = create_trace(
+    original_matrix, enabled=GENERATE_VISUALIZATION_TRACE, num_qubits=num_qubits,
+)
+synthesis_generators = synthesize(matrix, trace=visualization_trace)
 
 # reconstruct original matrix from the recorded generators
 print(f"[Verify] Reconstructing the input from {len(synthesis_generators)} generators.", flush=True)
@@ -59,12 +56,7 @@ else:
     raise ValueError("Synthesis verification failed.")
 
 # Save after exact verification, independently of the optional simulator.
-if GENERATE_VISUALIZATION_TRACE:
-    print("[Trace] Finalizing and saving the visualization trace...", flush=True)
-    trace_path = visualization_trace.finish(
-        matrix, synthesis_generators, synthesized_matrix
-    )
-    print(f"Visualization trace saved to: {trace_path}", flush=True)
+visualization_trace.finish(matrix, synthesis_generators, synthesized_matrix)
 
 
 # 3. create qiskit circuit from synthesized generators

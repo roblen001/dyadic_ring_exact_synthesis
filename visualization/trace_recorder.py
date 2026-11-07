@@ -2,7 +2,7 @@
 
 This observer never chooses or applies a generator. Every applied generator,
 quartet, sign choice, and matrix snapshot comes from the synthesis callbacks.
-It is imported only when GENERATE_VISUALIZATION_TRACE is enabled in main.py.
+The synthesis_trace factory imports it only when tracing is enabled in main.py.
 Recording needs the project's NumPy dependency and the Python standard library;
 Manim and JSON Schema are only needed when validating/rendering the saved file.
 """

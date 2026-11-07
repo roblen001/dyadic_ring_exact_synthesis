@@ -71,7 +71,10 @@ def write_json(path: Path, data: dict) -> None:
 
 
 def write_narration(path: Path, storyboard: dict) -> None:
-    lines = [f"# {storyboard['title']}", "", "Voiceover script supplied by the trace.", ""]
+    lines = [f"# {storyboard['title']}", "", "Voiceover draft: trace narration plus explicitly labelled presentation summaries/formulas.", ""]
+    if storyboard.get('presentation',{}).get('mode') == 'compact':
+        lines += ['Compact timings are visual timings, not a promise that every original sentence fits. '
+                  'Edit and rehearse the draft before recording; consult the full trace for omitted detail.', '']
     if storyboard["timing_status"] == "unrendered":
         lines += ["Timestamps will be added after rendering; holds exclude animation time.", ""]
     section = None
@@ -84,6 +87,8 @@ def write_narration(path: Path, storyboard: dict) -> None:
             cue += f" / {event['timing']['start_seconds']:.2f}–{event['timing']['end_seconds']:.2f}s"
         lines += [f"### {cue}", "", event["narration"]["text"], "",
                   f"Hold after animations: {event['narration']['hold_seconds']:g}s.", ""]
+        if 'source_event_ids' in event:
+            lines += ['Source events: ' + (', '.join(event['source_event_ids']) or 'Presentation annotation'), '']
         explanation = event["explanation"]
         lines += ["Editor notes (kept off-screen):", "", explanation["summary"], ""]
         rule = storyboard.get("rules", {}).get(explanation["rule_id"])
@@ -115,6 +120,8 @@ def write_captions(path: Path, storyboard: dict) -> None:
         chunks = ["\n".join(lines[i:i + 2]) for i in range(0, len(lines), 2)]
         start, end = event["timing"]["start_seconds"], event["timing"]["end_seconds"]
         weights = [len(chunk) for chunk in chunks]
+        if not weights:
+            continue
         weight_sum = sum(weights)
         cursor = start
         for i, (chunk, weight) in enumerate(zip(chunks, weights)):

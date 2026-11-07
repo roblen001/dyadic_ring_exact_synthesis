@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "examples_per_case": 1,
+  "formulas": [
+    {
+      "after_event": "event_00009",
+      "expression": "\\frac{2w'}{2^k}=\\frac{w'}{2^{k-1}}",
+      "hold_seconds": 2,
+      "narration": "The common factor of two cancels between the scaled numerators and the denominator."
+    }
+  ]
+}

@@ -13,6 +13,7 @@ import sys
 import tempfile
 
 from dyadic_viz.trace import load_trace
+from dyadic_viz.presentation import build_presentation
 from dyadic_viz.validation import TraceValidationError, validate_trace
 from dyadic_viz.storyboard import (
     attach_timeline, build_storyboard, write_captions, write_json, write_narration,
@@ -27,6 +28,10 @@ def main(argv: list[str] | None = None) -> int:
     mode.add_argument("--storyboard-only", action="store_true", help="Export explanation/script without video")
     parser.add_argument("--quality", choices=("low", "medium", "high"), default="medium")
     parser.add_argument("--output-dir", type=Path, default=Path("output"))
+    parser.add_argument('--detail', choices=('compact','full'), default='compact',
+                        help='Compact shows distinct cases once and condenses repeats (default)')
+    parser.add_argument('--presentation', type=Path,
+                        help='Optional JSON with formula cues, case tags and retained events')
     args = parser.parse_args(argv)
     try:
         trace_path = args.trace.resolve()
@@ -41,10 +46,14 @@ def main(argv: list[str] | None = None) -> int:
         output = args.output_dir.resolve()
         output.mkdir(parents=True, exist_ok=True)
         name = trace["trace_id"]
-        storyboard = build_storyboard(trace)
+        recipe = json.loads(args.presentation.read_text(encoding='utf-8')) if args.presentation else {}
+        storyboard = build_presentation(trace, mode=args.detail, recipe=recipe)
+        print(f"Presentation: {args.detail}; {storyboard['presentation']['condensed_source_events']} "
+              'source events condensed. The complete trace is retained.')
         storyboard_path = output / f"{name}.storyboard.json"
         narration_path = output / f"{name}.narration.md"
         write_json(storyboard_path, storyboard)
+        write_json(output / f'{name}.presentation.json', recipe)
         write_narration(narration_path, storyboard)
         if args.storyboard_only:
             print(f"Storyboard: {storyboard_path}\nNarration: {narration_path}")
@@ -62,6 +71,10 @@ def main(argv: list[str] | None = None) -> int:
         env = dict(os.environ)
         env["DYADIC_TRACE_PATH"] = str(frozen_trace)
         env["DYADIC_TIMELINE_PATH"] = str(timeline_path)
+        frozen_recipe = run_dir / 'presentation.json'
+        write_json(frozen_recipe, recipe)
+        env['DYADIC_PRESENTATION_PATH'] = str(frozen_recipe)
+        env['DYADIC_PRESENTATION_MODE'] = args.detail
         project = Path(__file__).resolve().parent
         env["PYTHONPATH"] = str(project) + os.pathsep + env.get("PYTHONPATH", "")
         quality = {"low": "l", "medium": "m", "high": "h"}[args.quality]
@@ -93,7 +106,13 @@ def main(argv: list[str] | None = None) -> int:
             "narration": str(narration_path), "captions": str(captions_path),
             "section_media_directory": str(run_dir), "quality": args.quality,
             "duration_seconds": storyboard["duration_seconds"],
+            "presentation_mode": args.detail,
+            "presentation_recipe": str(output / f'{name}.presentation.json'),
+            "presentation_recipe_sha256": hashlib.sha256(frozen_recipe.read_bytes()).hexdigest(),
         })
+        if args.detail == 'compact' and storyboard['duration_seconds'] > 240:
+            print('Note: this compact render exceeds four minutes. Review retained cases and formula holds; '
+                  'a fixed duration requires an explicit editorial choice, not silently dropping new cases.')
         print(f"Movie: {movie_path}\nNarration: {narration_path}\nCaptions: {captions_path}")
         return 0
     except (TraceValidationError, ValueError, OSError, RuntimeError) as error:

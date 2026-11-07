@@ -4,6 +4,7 @@ import math
 
 import numpy as np
 from constants import hh
+from synthesis_trace import bind_trace
 
 
 def get_lde(col: np.ndarray) -> int:
@@ -36,15 +37,16 @@ def manipulate_into_identity(
     Args:
         matrix: Working matrix whose columns are signed basis vectors.
         generator_list: List used to record applied generators.
+        trace: Optional synthesis hooks or an existing TraceRecorder.
 
     Returns:
         None. The matrix and generator list are modified in place.
     """
+    trace = bind_trace(trace, matrix, generator_list)
     print("[Synthesis] Pass 2/2: normalize the signed permutation to the identity.", flush=True)
     for i in range(len(matrix)):
         print(f"[Normalize] Column {i + 1}/{len(matrix)} (index {i}).", flush=True)
-        if trace is not None:
-            trace.start_column(matrix, i, 0, phase="normalize")
+        trace.start_column(i, 0, phase="normalize")
         col = matrix[:, i]
 
         nonzero_indices = np.flatnonzero(col != 0)
@@ -57,8 +59,7 @@ def manipulate_into_identity(
                 "type": "swap",
                 "indices": [i, row]
             })
-            if trace is not None:
-                trace.operation(matrix, generator_list[-1], role="permutation")
+            trace.permutation()
 
         if matrix[i, i] == -1:
             matrix[i, :] *= -1
@@ -67,11 +68,9 @@ def manipulate_into_identity(
                 "type": "sign_flip",
                 "indices": [i]
             })
-            if trace is not None:
-                trace.operation(matrix, generator_list[-1], role="terminal_sign")
+            trace.terminal_sign()
 
-        if trace is not None:
-            trace.column_complete(matrix, i)
+        trace.column_complete(i)
 
 def synthesize(matrix: np.ndarray, trace=None) -> list:
     """
@@ -86,11 +85,13 @@ def synthesize(matrix: np.ndarray, trace=None) -> list:
 
     Args:
         matrix: Unitary matrix with exact Fraction entries over the dyadic ring.
+        trace: Optional synthesis hooks or an existing TraceRecorder.
 
     Returns:
         ordered list of generators applied during the reduction.
     """
     generator_list = [] # [{type: "sign_flip", indices: [int(index)]}, {"type": "hh","indices": [int(i) for i in group]}]
+    trace = bind_trace(trace, matrix, generator_list)
     # Theorem 5.5: iteratively apply Lemma 5.4 to reduce each column
     # into its corresponding positive basis vector.
     # our goal is to reduce each col into a positive basis vector
@@ -103,8 +104,7 @@ def synthesize(matrix: np.ndarray, trace=None) -> list:
 
         print(f"[Reduce] Column {i + 1}/{len(matrix)} (index {i}): LDE = {lde}.", flush=True)
 
-        if trace is not None:
-            trace.start_column(matrix, i, lde, phase="integral")
+        trace.start_column(i, lde)
         while lde != 0:   
             # Lemma 5.3: reduce the least denominator exponent of the column.
 
@@ -137,11 +137,9 @@ def synthesize(matrix: np.ndarray, trace=None) -> list:
                   f"applying {len(sign_flip_indices)} sign flips and "
                   f"{len(odd_groups_of_4_indices)} H tensor H operations.", flush=True)
             
-            if trace is not None:
-                trace.start_sweep(
-                    matrix, lde, scaled_col, odd_indices,
-                    odd_groups_of_4_indices, sign_flip_indices,
-                )
+            trace.start_sweep(
+                lde, scaled_col, odd_indices, odd_groups_of_4_indices, sign_flip_indices,
+            )
 
             for index in sign_flip_indices:
                 matrix[index, :] *= -1
@@ -150,8 +148,7 @@ def synthesize(matrix: np.ndarray, trace=None) -> list:
                     "type": "sign_flip",
                     "indices": [int(index)]
                 })
-                if trace is not None:
-                    trace.operation(matrix, generator_list[-1], role="sign_correction")
+                trace.sign_correction()
 
             # Lemma 5.2: apply HxH to each group of four odd entries.
             # Apply HxH gate which is going to make them even
@@ -162,19 +159,16 @@ def synthesize(matrix: np.ndarray, trace=None) -> list:
                     "type": "hh",
                     "indices": [int(index) for index in group]
                 })
-                if trace is not None:
-                    trace.operation(matrix, generator_list[-1], role="mixing")
+                trace.mixing()
 
             # Lemma 5.3 guarantees that the least denominator exponent
             # has decreased after all groups have been processed.
             lde = get_lde(matrix[:, i])
             
             print(f"  Sweep complete: LDE = {lde}; {len(generator_list)} generators so far.", flush=True)
-            if trace is not None:
-                trace.finish_sweep(matrix, lde)
+            trace.finish_sweep(lde)
 
-        if trace is not None:
-            trace.column_integral(matrix, i)
+        trace.column_integral(i)
 
     # Lemma 5.4 base case: once lde = 0, each unit column is a signed basis vector.
     # we now have matrix in the form of +-basis vector (1 0 0 0 0 0 ...)
