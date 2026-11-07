@@ -1,3 +1,5 @@
+<img width="1672" height="941" alt="dyadic-ring-exact-synthesis" src="https://github.com/user-attachments/assets/daa469e3-b34d-477d-b1fd-473f78aa2d2b" />
+
 # Dyadic Ring Exact Synthesis
 
 Exact synthesis and visualization of quantum operations over the dyadic ring Z[1/2], following the construction of Amy, Glaudell, and Ross (2020).
@@ -57,15 +59,11 @@ The main program performs the following steps:
 
 The two main correctness checks are
 
-\[
 V_reduced = I
-\]
 
 and
 
-\[
-V_ynthesized = V_original.
-\]
+V_synthesized = V_original.
 
 Because the synthesis uses Python `Fraction` objects, the mathematical
 reconstruction is checked using exact equality rather than floating-point
@@ -170,9 +168,7 @@ a full unitary operation acting on the qubit register.
 The paper goes one step further in Proposition 4.4 and shows that these
 generators can be implemented using the gate set
 
-\[
-\{X, CX, CCX, H \otimes H\}
-\]
+{X, CX, CCX, HxH}
 
 with at most one clean ancilla.
 
@@ -212,7 +208,7 @@ This effort is supported by Qollab & IonQ.
 
 ## Demo
 
-Demo video: **[ADD PUBLIC DEMO VIDEO LINK HERE]**
+Demo video: [**Visualizing Exact Quantum Synthesis over the Dyadic Ring (Qollab × IonQ Hackathon)**](https://youtu.be/dPWYOlH3RDE)
 
 The demo shows a nontrivial dyadic matrix being synthesized, verified, and
 visualized step by step.
